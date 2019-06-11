@@ -8,3 +8,7 @@
   ```
   npm run dev
   ```
+- Visit
+  ```
+	localhost:3000
+  ```
