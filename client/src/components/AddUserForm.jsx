@@ -1,28 +1,45 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 
-function AdduserForm() {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const [email, setEmail] = useState('');
-	const [age, setAge] = useState('');
+function AdduserForm(props) {
+
+	// set default form values base on the state of props
+	const [operation, setOperation] = useState(props.userDetails ? 'edit' : 'add');
+	const [_id, setId] = useState(props.userDetails ? props.userDetails._id : '');
+	const [username, setUsername] = useState(props.userDetails ? props.userDetails.username : '');
+	const [password, setPassword] = useState(props.userDetails ? props.userDetails.password : '');
+	const [email, setEmail] = useState(props.userDetails ? props.userDetails.email : '');
+	const [age, setAge] = useState(props.userDetails ? props.userDetails.age : '');
 
 	async function handleSubmit (event){
 		event.preventDefault();
-		let resp = await axios.post('/api/users', {
-			username, email, password, age
-		});
-		const { data } = resp;
-		if (data.type) throw new Error(data.message);
 
+		// make network request base on operation field
+		if (operation === 'add') {
+			// add to database
+			let resp = await axios.post('/api/users', {
+				username, email, password, age
+			});
+			const { data } = resp;
+			if (data.type) throw new Error(data.message);
+
+		} else {
+			// do update
+			let resp = await axios.put(`/api/users/${_id}`, { username, password, email, age });
+			console.log('update response => ', resp);
+		}
+
+		// empty form values
 		setUsername('');
 		setPassword('');
 		setEmail('');
 		setAge('');
 	}
-	
+
 	return (
 		<form onSubmit={handleSubmit} >
+			<input type="hidden" name='operation' value={operation}/>
+			<input type="hidden" name='_id' value={_id}/>
 			<div className="field">
 				<label className="label">Username</label>
 				<div className="control">

@@ -7,7 +7,7 @@ function ViewUsers() {
 		<div>
 			<TopNavigation />
 			<div className="columns">
-				<div className="column is-three-fifths is-offset-one-fifth">
+				<div className="column is-four-fifths is-offset-one-fifth">
 					<Usertable />
 				</div>
 			</div>
