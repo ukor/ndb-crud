@@ -63,14 +63,46 @@ function UserTable() {
 						{data: 'email'},
 						{data: 'password'},
 						{ data: 'age' },
-						{ data: "action", renderer: "html", readOnly: true }
+						{
+							data: '_id',
+							readOnly: true,
+							renderer: function (instance, td, row, col, prop, value, cellProperties) {
+								let deleteButton = null;
+								deleteButton = document.createElement('BUTTON');
+								deleteButton.className = 'button is-danger';
+								deleteButton.innerText = 'Delete';
+								deleteButton.setAttribute('data-id', value);
+								Handsontable.dom.addEvent(deleteButton, 'click', async function (event) {
+									event.preventDefault();
+									let userId = event.target.getAttribute('data-id');
+									let delete_response = await axios.delete(`/api/users/${userId}`);
+									const { data } = delete_response;
+									if (data.type === 'success') {
+										// put success message in view
+										console.log(data.message);
+										// to trigger re-render of the table update the users state
+										let _newUser = users.filter(user => user._id !== userId);
+
+										setUsers(_newUser);
+
+									} else {
+										// put error message in view
+										console.log(data.message);
+									}
+								});
+
+								Handsontable.dom.empty(td);
+								td.appendChild(deleteButton);
+
+								return td;
+							}
+						  }
 					],
 					startCols: 5,
 					rowHeaders: true,
 					'separator': Handsontable.plugins.ContextMenu.SEPARATOR,
 				}}
 				afterChange={(e, s) => editUser(e, s)}
-				afterListen={(e) => console.log(e)}
 				licenseKey= "non-commercial-and-evaluation"
 			/>
 		</div>
