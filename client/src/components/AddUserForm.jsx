@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 function AdduserForm() {
+
+	const { enqueueSnackbar } = useSnackbar();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
@@ -16,7 +19,9 @@ function AdduserForm() {
 				username, email, password, age
 			});
 			const { data } = resp;
-			if (data.type) throw new Error(data.message);
+			if (data.type === 'error') throw new Error(data.message);
+
+			enqueueSnackbar(data.message, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'left' } } )
 
 			// empty form values
 			setUsername('');
@@ -25,6 +30,7 @@ function AdduserForm() {
 			setAge('');
 		} catch (exception) {
 			console.log(exception);
+			enqueueSnackbar(exception.message, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'left' } })
 		}
 	}
 

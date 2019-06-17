@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HotTable } from '@handsontable/react';
+import { useSnackbar } from 'notistack';
 import Handsontable from 'handsontable';
 import 'handsontable/dist/handsontable.full.css';
 import axios from 'axios';
@@ -7,13 +8,14 @@ import axios from 'axios';
 function UserTable() {
 
 	const [users, setUsers] = useState([])
+	const { enqueueSnackbar } = useSnackbar();
 
 	async function editUser(changes, source) {
 		if (source === 'edit') {
 			let requestData = {};
 			// array destructuring - contains details about the feild changed
 			const [row, fieldChanged, oldData, newData] = changes[0];
-			console.log(row, fieldChanged, oldData, newData);
+			// console.log(row, fieldChanged, oldData, newData);
 
 			// only make request when newData !== oldData
 			if (oldData !== newData) {
@@ -23,10 +25,10 @@ function UserTable() {
 				const { data } = updateResponse;
 				if (data.type === 'success') {
 					// put success message in view
-					console.log(data.message);
+					enqueueSnackbar(data.message, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'left' } });
 				} else {
 					// put error message in view
-					console.log(data.message);
+					enqueueSnackbar(data.message, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'left' } });
 				}
 			}
 
@@ -82,12 +84,14 @@ function UserTable() {
 										console.log(data.message);
 										// to trigger re-render of the table update the users state
 										let _newUser = users.filter(user => user._id !== userId);
-
 										setUsers(_newUser);
+
+										enqueueSnackbar(data.message, { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'left' } });
 
 									} else {
 										// put error message in view
 										console.log(data.message);
+										enqueueSnackbar(data.message, { variant: 'error', anchorOrigin: { vertical: 'top', horizontal: 'left' } });
 									}
 								});
 

@@ -1,3 +1,14 @@
-{"username":"demo","email":"demo@demo.com","password":"demo","age":"12","_id":"xDK1MxT9eWwGCnox"}
-{"username":"demo","email":"demo@demo.com","password":"demo","age":"34","_id":"xDK1MxT9eWwGCnox"}
-{"$$deleted":true,"_id":"xDK1MxT9eWwGCnox"}
+{"username":"demo","email":"demo@demo.com","password":"demo","age":"1","_id":"czKG7a8rj2F6j1CF"}
+{"username":"demo","email":"demo@demo.com","password":"demo","age":"1","_id":"oK249nghYMdoxS9Q"}
+{"username":"Demo 2","email":"demo2@demo.com","password":"demo2","age":"2","_id":"q10IkQYuEl3C8a9o"}
+{"username":"demo 3","email":"demo3@demo.com","password":"demo3","age":"3","_id":"Mf5ryALdiFNfYRbk"}
+{"username":"demo4","email":"demo4@gmail.com","password":"demo4","age":"4","_id":"Euovq65Fl4VJQg5f"}
+{"username":"demo 5","email":"demo5@demo.com","password":"demo5","age":"5","_id":"mGUe22xnK0bLsSgY"}
+{"username":"demo","email":"demo@demo.com","password":"demo","age":"32","_id":"czKG7a8rj2F6j1CF"}
+{"username":"demo","email":"demo@demo.com","password":"demo","age":"23","_id":"czKG7a8rj2F6j1CF"}
+{"$$deleted":true,"_id":"oK249nghYMdoxS9Q"}
+{"$$deleted":true,"_id":"czKG7a8rj2F6j1CF"}
+{"$$deleted":true,"_id":"Mf5ryALdiFNfYRbk"}
+{"$$deleted":true,"_id":"q10IkQYuEl3C8a9o"}
+{"$$deleted":true,"_id":"Euovq65Fl4VJQg5f"}
+{"$$deleted":true,"_id":"mGUe22xnK0bLsSgY"}
