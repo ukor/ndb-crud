@@ -2,7 +2,7 @@ import React from 'react';
 
 function TopNavigation() {
 	return (
-		<nav className="navbar" role="navigation" aria-label="main navigation">
+		<nav className="navbar is-spaced is-primary" role="navigation" aria-label="main navigation">
 			<div className="navbar-brand">
 				<a href="/" className="navbar-item">
 					App
