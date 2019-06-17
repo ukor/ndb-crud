@@ -6,7 +6,32 @@ import axios from 'axios';
 
 function UserTable() {
 
-	const [users, setUsers ] = useState([])
+	const [users, setUsers] = useState([])
+
+	async function editUser(changes, source) {
+		if (source === 'edit') {
+			let requestData = {};
+			// array destructuring - contains details about the feild changed
+			const [row, fieldChanged, oldData, newData] = changes[0];
+			console.log(row, fieldChanged, oldData, newData);
+
+			// only make request when newData !== oldData
+			if (oldData !== newData) {
+				// make network request to update
+				requestData[fieldChanged] = newData;
+				let updateResponse = await axios.put(`/api/users/${users[row]._id}`, requestData);
+				const { data } = updateResponse;
+				if (data.type === 'success') {
+					// put success message in view
+					console.log(data.message);
+				} else {
+					// put error message in view
+					console.log(data.message);
+				}
+			}
+
+		}
+	}
 
 	useEffect(() => {
 		async function fetchUsers() {
@@ -15,7 +40,7 @@ function UserTable() {
 				const { data } = users;
 				console.log(data);
 				data.forEach(user => {
-					user.action = `<button>Delete</button> <a className='button' href='/edit-user/${user._id}'>Edit</a>`
+					user.action = `<button>Delete</button> <a className='button'`
 				});
 				setUsers(data);
 			} catch (exception) {
@@ -44,6 +69,8 @@ function UserTable() {
 					rowHeaders: true,
 					'separator': Handsontable.plugins.ContextMenu.SEPARATOR,
 				}}
+				afterChange={(e, s) => editUser(e, s)}
+				afterListen={(e) => console.log(e)}
 				licenseKey= "non-commercial-and-evaluation"
 			/>
 		</div>
