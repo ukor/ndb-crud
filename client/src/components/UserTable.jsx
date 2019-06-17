@@ -34,34 +34,11 @@ function UserTable() {
 					dataSchema: { username: null, email: null, password: null, age: null },
 					colHeaders: ['Username', 'Email', 'Password', 'Age', 'Action'],
 					columns: [
-						{data: 'username', readOnly: true},
-						{data: 'email', readOnly: true},
-						{data: 'password', readOnly: true},
-						{ data: 'age', readOnly: true },
-						{ data: "action", renderer: "html", readOnly: true },
-						{
-							renderer: function(instance, td, row, col, prop, value, cellProperties) {
-							  const escaped = Handsontable.helper.stringify(value);
-							  let img = null;
-
-							  if (escaped.indexOf('http') === 0) {
-								img = document.createElement('IMG');
-								img.src = value;
-
-								Handsontable.dom.addEvent(img, 'mousedown', function(event) {
-								  event.preventDefault();
-								});
-
-								Handsontable.dom.empty(td);
-								td.appendChild(img);
-							  }
-							  else {
-								Handsontable.renderers.TextRenderer.apply(this, arguments);
-							  }
-
-							  return td;
-							}
-						  }
+						{data: 'username'},
+						{data: 'email'},
+						{data: 'password'},
+						{ data: 'age' },
+						{ data: "action", renderer: "html", readOnly: true }
 					],
 					startCols: 5,
 					rowHeaders: true,
