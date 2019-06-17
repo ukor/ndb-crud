@@ -43,12 +43,15 @@ router.route('/users')
 
     usersModel.insert(postData, function(err, newUser) {
       if (err) {
-        res.send(err);
+		  res.json({ type: 'error', message: 'A fatal error occured.' });
+		  console.log('Error', err)
 
         return;
       }
 
-      res.json(newUser);
+		res.json({
+			type: 'success', message: `${newUser.username} has been added successfully.`, user: newUser
+		});
     });
   });
 
